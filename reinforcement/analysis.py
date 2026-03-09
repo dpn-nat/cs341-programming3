@@ -21,7 +21,7 @@
 
 def question2():
     answerDiscount = 0.9
-    answerNoise = 0.2
+    answerNoise = 0  # lowered noise so agent take the bridge path. Rather than avoiding it. 
     return answerDiscount, answerNoise
 
 def question3a():
