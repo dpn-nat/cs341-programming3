@@ -41,7 +41,6 @@ class QLearningAgent(ReinforcementAgent):
     def __init__(self, **args):
         "You can initialize Q-values here..."
         ReinforcementAgent.__init__(self, **args)
-
         self.qValues = util.Counter()
 
     def getQValue(self, state, action):
@@ -100,6 +99,7 @@ class QLearningAgent(ReinforcementAgent):
         # return action that has highest qvalue
         return besAct
         
+
 
     def getAction(self, state):
         """
@@ -208,14 +208,22 @@ class ApproximateQAgent(PacmanQAgent):
           where * is the dotProduct operator
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        features = self.featExtractor.getFeatures(state, action)  # go to featextractor.py get getfeatures  which will extract feature values 
+        q = 0.0 #intialize q 
+        for f, value in features.items(): # looping over each feature and its value 
+            q += self.weights[f] * value  # add the weight of this feature to the q-value 
+        return q # return the total q value 
 
     def update(self, state, action, nextState, reward):
         """
            Should update your weights based on transition
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        features = self.featExtractor.getFeatures(state, action)  # again get the feature vector 
+        difference = (reward + self.discount * self.computeValueFromQValues(nextState)) - self.getQValue(state, action)  #calculating difference as stated in question. 
+        for f in features: # looping over each feature in feature vector 
+            self.weights[f] += self.alpha * difference * features[f]  #updating weight with given in question  
+
 
     def final(self, state):
         "Called at the end of each game."
@@ -226,4 +234,5 @@ class ApproximateQAgent(PacmanQAgent):
         if self.episodesSoFar == self.numTraining:
             # you might want to print your weights here for debugging
             "*** YOUR CODE HERE ***"
+            print("Final weights ", self.weights)
             pass

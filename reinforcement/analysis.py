@@ -60,10 +60,8 @@ def question3e():
     # If not possible, return 'NOT POSSIBLE'
 
 def question8():
-    answerEpsilon = None
-    answerLearningRate = None
-    return answerEpsilon, answerLearningRate
-    # If not possible, return 'NOT POSSIBLE'
+    return 'NOT POSSIBLE' # the reason is not possible is e > 0 then agent keeps ecploring randomly meaning it might not be consistenly following the optimal bridge within 50 episodes 
+                          # and if i do e = 0 then agent does not explore and may never discover the optimal path hence no such combination of e and learningrate for which the optimal policy >99% exist. NOT possible. 
 
 if __name__ == '__main__':
     print('Answers to analysis questions:')
